@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lucky Kumar — BTech IT Student, Full-Stack Developer, AI Enthusiast. Portfolio showcasing projects, skills, and experience." />
+  <meta name="keywords" content="Lucky Kumar, Full Stack Developer, Python, Java, AI, Portfolio, Delhi" />
+  <meta name="author" content="Lucky Kumar" />
+  <meta property="og:title" content="Lucky Kumar | Developer Portfolio" />
+  <meta property="og:description" content="Full-Stack Developer & AI Enthusiast based in Delhi, India." />
+  <meta property="og:type" content="website" />
+  <title>Lucky Kumar | Full-Stack Developer & AI Enthusiast</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░░ LOADER  -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-logo">LK</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <p class="loader-text">Initialising portfolio…</p>
+    </div>
+  </div>
+
+  <!-- ░░░ NAV ░░░ -->
+  <header id="navbar">
+    <nav class="nav-container">
+      <a href="#home" class="nav-logo">lucky<span>.dev</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#certifications">Certs</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ░░░ HERO ░░░ -->
+    <section id="home" class="hero">
+      <div class="hero-bg-grid" aria-hidden="true"></div>
+      <div class="hero-orb orb1" aria-hidden="true"></div>
+      <div class="hero-orb orb2" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow"><span class="dot"></span> Available for internships &amp; projects</p>
+        <h1 class="hero-name">
+          <span class="glitch" data-text="Lucky Kumar">Lucky Kumar</span>
+        </h1>
+        <div class="hero-role">
+          <span class="role-static">I build </span>
+          <span class="typewriter" id="typewriter"></span>
+        </div>
+        <p class="hero-tagline">
+          BTech IT student at Delhi crafting full-stack products and intelligent AI systems —
+          where clean code meets creative thinking.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View My Work</a>
+          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          <a href="https://github.com/lucky07016" target="_blank" rel="noopener" class="btn btn-icon" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/lucky-kumar-20ab2433a" target="_blank" rel="noopener" class="btn btn-icon" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ░░░ ABOUT ░░░ -->
+    <section id="about" class="section about-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Who I Am</span>
+          <h2 class="section-title">About Me</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-photo-col">
+            <div class="photo-frame">
+              <img src="images/profile.jpg" alt="Lucky Kumar" class="profile-photo" />
+              <div class="photo-border-anim"></div>
+            </div>
+            <div class="about-stats">
+              <div class="stat-card">
+                <span class="stat-num">8+</span>
+                <span class="stat-label">GitHub Repos</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num">10+</span>
+                <span class="stat-label">Certifications</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-num">4th</span>
+                <span class="stat-label">Year BTech</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-text-col">
+            <p class="about-intro">
+              I'm a passionate <strong>B.Tech Information Technology</strong> student based in Delhi, India,
+              working at the intersection of <em>software development</em> and <em>artificial intelligence</em>.
+              I believe in writing simple, efficient code that solves real problems.
+            </p>
+            <p>
+              My technical toolkit spans Python, Java, JavaScript, full-stack web development, and Data Structures
+              &amp; Algorithms. Beyond the code, I'm deeply interested in Generative AI, prompt engineering, and
+              designing intelligent systems that work <em>with</em> humans, not just for them.
+            </p>
+            <p>
+              I also bring a creative edge through photo/video editing and graphic design — because the best
+              software isn't just functional, it's beautiful.
+            </p>
+            <p>
+              Currently seeking <strong>internships, collaborative projects, and open-source contributions</strong>
+              where I can grow fast and ship meaningful work.
+            </p>
+            <div class="about-actions">
+              <a href="mailto:pattiesfav@gmail.com" class="btn btn-primary btn-sm">
+                <i class="fas fa-envelope"></i> Email Me
+              </a>
+              <a href="https://github.com/lucky07016" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░ SKILLS ░░░ -->
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">What I Know</span>
+          <h2 class="section-title">Skills</h2>
+        </div>
+        <div class="skills-categories">
+
+          <div class="skill-group reveal">
+            <h3 class="skill-group-title"><i class="fas fa-code"></i> Technical</h3>
+            <div class="skill-bars">
+              <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>Python</span><span>85%</span></div>
+                <div class="skill-track"><div class="skill-fill" data-w="85"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>Java</span><span>75%</span></div>
+                <div class="skill-track"><div class="skill-fill" data-w="75"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>JavaScript</span><span>70%</span></div>
+                <div class="skill-track"><div class="skill-fill" data-w="70"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>HTML / CSS</span><span>80%</span></div>
+                <div class="skill-track"><div class="skill-fill" data-w="80"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>MongoDB / NoSQL</span><span>65%</span></div>
+                <div class="skill-track"><div class="skill-fill" data-w="65"></div></div>
+              </div>
+              <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>DSA</span><span>70%</span></div>
+                <div class="skill-track"><div class="skill-fill" data-w="70"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="skill-group-title"><i class="fas fa-robot"></i> AI & Platforms</h3>
+            <div class="skill-tags">
+              <span class="stag">Generative AI</span>
+              <span class="stag">Prompt Engineering</span>
+              <span class="stag">AI Agents</span>
+              <span class="stag">Workflow Automation</span>
+              <span class="stag">ServiceNow Admin</span>
+              <span class="stag">ServiceNow ATF</span>
+              <span class="stag">AI for Human Collab</span>
+              <span class="stag">Streamlit</span>
+            </div>
+          </div>
+
+          <div class="skill-group reveal">
+            <h3 class="skill-group-title"><i class="fas fa-palette"></i> Creative</h3>
+            <div class="skill-tags">
+              <span class="stag stag-amber">Adobe Photoshop</span>
+              <span class="stag stag-amber">Photo Editing</span>
+              <span class="stag stag-amber">Video Editing</span>
+              <span class="stag stag-amber">Graphic Design</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░ PROJECTS ░░░ -->
+    <section id="projects" class="section projects-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">What I've Built</span>
+          <h2 class="section-title">Projects</h2>
+        </div>
+        <div class="projects-grid">
+
+          <article class="project-card reveal">
+            <div class="project-card-top">
+              <div class="project-icon"><i class="fas fa-dumbbell"></i></div>
+              <div class="project-links">
+                <a href="https://github.com/lucky07016/GYM-MANAGEMENT-SYSTEM" target="_blank" rel="noopener" aria-label="GitHub">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">GYM Management System</h3>
+            <p class="project-desc">
+              A modern gym management web app featuring interactive UI, smooth animations,
+              and a gaming-inspired UX for tracking workouts and managing fitness activities.
+            </p>
+            <div class="project-techs">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-card-top">
+              <div class="project-icon"><i class="fas fa-calculator"></i></div>
+              <div class="project-links">
+                <a href="https://github.com/lucky07016/Animated-Scientific-Calc" target="_blank" rel="noopener" aria-label="GitHub">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Animated Scientific Calculator</h3>
+            <p class="project-desc">
+              A fully functional scientific calculator with number dropdown animations and
+              interactive visuals — built across multiple languages for a rich UI experience.
+            </p>
+            <div class="project-techs">
+              <span>Java</span><span>JavaScript</span><span>HTML/CSS</span><span>C</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-card-top">
+              <div class="project-icon"><i class="fas fa-train"></i></div>
+              <div class="project-links">
+                <a href="https://github.com/lucky07016/RAILWAY-SYSTEM" target="_blank" rel="noopener" aria-label="GitHub">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Railway System</h3>
+            <p class="project-desc">
+              A Python-based railway login and trip locator system — clean backend logic
+              for managing user authentication and journey search flows.
+            </p>
+            <div class="project-techs">
+              <span>Python</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-card-top">
+              <div class="project-icon"><i class="fas fa-lock"></i></div>
+              <div class="project-links">
+                <a href="https://github.com/lucky07016/Login-Page" target="_blank" rel="noopener" aria-label="GitHub">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Animated Login Page</h3>
+            <p class="project-desc">
+              A sleek, modern login page featuring smooth CSS transitions and interactive
+              UI elements — crafted with attention to visual polish and UX flow.
+            </p>
+            <div class="project-techs">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-card-top">
+              <div class="project-icon"><i class="fas fa-chart-bar"></i></div>
+              <div class="project-links">
+                <a href="https://github.com/lucky07016/IPEC" target="_blank" rel="noopener" aria-label="GitHub">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">Streamlit Practice (IPEC)</h3>
+            <p class="project-desc">
+              Hands-on Streamlit module experiments — exploring data apps, interactive
+              widgets, and rapid prototyping of AI-powered interfaces.
+            </p>
+            <div class="project-techs">
+              <span>Python</span><span>Streamlit</span>
+            </div>
+          </article>
+
+        </div>
+        <div class="projects-cta">
+          <a href="https://github.com/lucky07016" target="_blank" rel="noopener" class="btn btn-ghost">
+            <i class="fab fa-github"></i> See All on GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░ EDUCATION ░░░ -->
+    <section id="education" class="section education-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">My Journey</span>
+          <h2 class="section-title">Education</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">2023 – Present</span>
+              <h3>B.Tech — Information Technology</h3>
+              <p class="timeline-sub">Currently in 4th year · Delhi, India</p>
+              <p class="timeline-desc">
+                Studying core CS fundamentals, software engineering, AI/ML, and full-stack
+                development. Active participant in hackathons and open-source communities.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">Before 2023</span>
+              <h3>Higher Secondary Education</h3>
+              <p class="timeline-sub">Delhi, India</p>
+              <p class="timeline-desc">
+                Science stream with a focus on Mathematics and Computer Science — built the
+                foundation for engineering and problem-solving.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░ EXPERIENCE ░░░ -->
+    <section id="experience" class="section experience-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Where I've Worked</span>
+          <h2 class="section-title">Experience</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="timeline-dot timeline-dot-amber"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">Current</span>
+              <h3>Graphic Designer</h3>
+              <p class="timeline-sub">Top Talent Bridge LLP · Design Department</p>
+              <p class="timeline-desc">
+                Working in a technology and internet company's design team — creating visual
+                assets, brand collateral, and digital content for client projects.
+              </p>
+              <div class="exp-tags">
+                <span>Adobe Photoshop</span>
+                <span>Graphic Design</span>
+                <span>Brand Design</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="timeline-dot timeline-dot-amber"></div>
+            <div class="timeline-card">
+              <span class="timeline-year">Oct 2024 – Nov 2024</span>
+              <h3>Freelancer</h3>
+              <p class="timeline-sub">Self-Employed · Information Services</p>
+              <p class="timeline-desc">
+                Freelance projects spanning information services and creative work — delivering
+                tailored digital solutions for independent clients.
+              </p>
+              <div class="exp-tags">
+                <span>Freelance</span>
+                <span>Creative Projects</span>
+                <span>Client Work</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░ CERTIFICATIONS ░░░ -->
+    <section id="certifications" class="section certs-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Credentials</span>
+          <h2 class="section-title">Certifications</h2>
+        </div>
+        <div class="certs-grid">
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-database"></i></div><div class="cert-info"><h4>MongoDB Aggregation</h4><p>MongoDB · Aug 2025</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-database"></i></div><div class="cert-info"><h4>MongoDB Indexes</h4><p>MongoDB · Aug 2025</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-brain"></i></div><div class="cert-info"><h4>Generative AI Literacy</h4><p>IT-ITeS SSC (NASSCOM)</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fab fa-microsoft"></i></div><div class="cert-info"><h4>AI Skills Passport</h4><p>Microsoft &amp; Edunet Foundation</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-trophy"></i></div><div class="cert-info"><h4>EY Techathon 6.0</h4><p>Round 1 — Executive Summary</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-cog"></i></div><div class="cert-info"><h4>ServiceNow Admin Fundamentals</h4><p>ServiceNow · On-Demand</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-vial"></i></div><div class="cert-info"><h4>ServiceNow ATF</h4><p>Automated Test Framework</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-robot"></i></div><div class="cert-info"><h4>AI for Human Collaboration</h4><p>ServiceNow</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-project-diagram"></i></div><div class="cert-info"><h4>AI Agents &amp; Workflow Automation</h4><p>ServiceNow</p></div></div>
+          <div class="cert-card reveal"><div class="cert-icon"><i class="fas fa-star"></i></div><div class="cert-info"><h4>Welcome to ServiceNow</h4><p>ServiceNow</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░ CONTACT ░░░ -->
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Say Hello</span>
+          <h2 class="section-title">Get in Touch</h2>
+          <p class="section-sub">Open to internships, collaborations, and interesting projects. Let's build something together.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+              <div><p class="ci-label">Email</p><a href="mailto:pattiesfav@gmail.com">pattiesfav@gmail.com</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div><p class="ci-label">Location</p><p>Delhi, India</p></div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fab fa-github"></i></div>
+              <div><p class="ci-label">GitHub</p><a href="https://github.com/lucky07016" target="_blank" rel="noopener">github.com/lucky07016</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="ci-icon"><i class="fab fa-linkedin"></i></div>
+              <div><p class="ci-label">LinkedIn</p><a href="https://www.linkedin.com/in/lucky-kumar-20ab2433a" target="_blank" rel="noopener">in/lucky-kumar-20ab2433a</a></div>
+            </div>
+          </div>
+          <form class="contact-form reveal" id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+                <span class="field-error" id="nameError"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+                <span class="field-error" id="emailError"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Internship opportunity / Collaboration / Hello" required />
+              <span class="field-error" id="subjectError"></span>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or opportunity…" required></textarea>
+              <span class="field-error" id="messageError"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-icon-r"><i class="fas fa-paper-plane"></i></span>
+            </button>
+            <div class="form-success" id="formSuccess">
+              <i class="fas fa-check-circle"></i> Message sent! I'll get back to you soon.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ░░░ FOOTER ░░░ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="nav-logo">lucky<span>.dev</span></span>
+        <p>Building at the intersection of code &amp; intelligence.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-socials">
+        <a href="https://github.com/lucky07016" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/lucky-kumar-20ab2433a" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:pattiesfav@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 Lucky Kumar. Designed &amp; built with ♥ in Delhi.</p>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="backToTop" aria-label="Back to top" title="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
