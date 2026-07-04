@@ -917,10 +917,37 @@ ul, ol { list-style: none; }
 }
 
 /* ── Certifications ──────────────────────────────────────────── */
+.certs-featured,
+.certs-secondary {
+  margin-top: 30px;
+}
+
+.certs-featured .section-subheader,
+.certs-secondary .section-subheader {
+  margin-bottom: 18px;
+}
+
+.certs-featured .section-subheader h3,
+.certs-secondary .section-subheader h3 {
+  font-family: var(--ff-display);
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.certs-featured .section-subheader p,
+.certs-secondary .section-subheader p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 .certs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 18px;
+}
+
+.certs-grid-highlighted {
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
 }
 
 .cert-card {
