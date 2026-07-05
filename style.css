@@ -619,8 +619,11 @@ ul, ol { list-style: none; }
 /* ── Skills ──────────────────────────────────────────────────── */
 .skills-categories {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
+  max-width: 980px;
+  margin: 0 auto;
+  justify-items: center;
 }
 
 .skill-group {
@@ -628,6 +631,8 @@ ul, ol { list-style: none; }
   border: 1px solid var(--border-sub);
   border-radius: var(--radius-lg);
   padding: 28px;
+  width: 100%;
+  max-width: 300px;
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
