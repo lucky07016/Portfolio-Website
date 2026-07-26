@@ -1273,9 +1273,8 @@ ul, ol { list-style: none; }
 }
 
 /* ── Mobile Nav ──────────────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   :root { --section-pad: 70px; }
-
   .hamburger { display: flex; }
 
   .nav-links {
