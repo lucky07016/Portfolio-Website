@@ -82,6 +82,131 @@ function typeWrite() {
 // Start typewriter after loader finishes
 setTimeout(typeWrite, 1600);
 
+/* ── Hero coding background animation ────────────────────────── */
+function initHeroCodeBg() {
+  const canvas = document.getElementById('heroCodeCanvas');
+  const hero = document.getElementById('home');
+  if (!canvas || !hero) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const ctx = canvas.getContext('2d');
+  const fontFamily = '"JetBrains Mono", monospace';
+  const fontSize = 13;
+  const charSet = '{}[]();=><+-*/&|!?:.0123456789constletfnifelseforwhileasyncawaitimportexportreturnclassdefprint';
+  const snippets = [
+    'const build = () => {',
+    'import React from "react"',
+    'def train_model():',
+    'async function fetchData()',
+    'git push origin main',
+    'npm run dev',
+    'return res.json(data)',
+    'useEffect(() => {}, [])',
+    'class Portfolio {',
+    'SELECT * FROM users',
+    'docker compose up',
+    'model.fit(X, y)',
+    'try: except Exception:',
+    'public static void main',
+    'export default App',
+    'console.log("debug")',
+    'pip install torch',
+    'if (response.ok) {',
+  ];
+
+  let width = 0;
+  let height = 0;
+  let animId = 0;
+  let columns = 0;
+  let drops = [];
+  let floaters = [];
+  let running = true;
+
+  function createFloater(scattered) {
+    return {
+      x: Math.random() * width,
+      y: scattered ? Math.random() * height : height + 24,
+      text: snippets[Math.floor(Math.random() * snippets.length)],
+      speed: 0.18 + Math.random() * 0.42,
+      drift: (Math.random() - 0.5) * 0.1,
+      opacity: 0.05 + Math.random() * 0.09,
+      accent: Math.random() > 0.55,
+      size: 11 + Math.random() * 4,
+    };
+  }
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = hero.offsetWidth;
+    height = hero.offsetHeight;
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    columns = Math.ceil(width / fontSize);
+    drops = Array.from({ length: columns }, () => Math.random() * -120);
+
+    const floaterCount = Math.min(16, Math.max(8, Math.floor(width / 85)));
+    floaters = Array.from({ length: floaterCount }, () => createFloater(true));
+  }
+
+  function draw() {
+    if (!running) return;
+
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.08)';
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.font = `${fontSize}px ${fontFamily}`;
+    for (let i = 0; i < columns; i++) {
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+      const char = charSet[Math.floor(Math.random() * charSet.length)];
+      const bright = Math.random() > 0.965;
+      ctx.fillStyle = bright
+        ? 'rgba(34, 211, 238, 0.42)'
+        : 'rgba(129, 140, 248, 0.13)';
+      ctx.fillText(char, x, y);
+
+      if (y > height && Math.random() > 0.985) drops[i] = 0;
+      drops[i] += 0.32 + (i % 4) * 0.07;
+    }
+
+    floaters.forEach((floater, index) => {
+      floater.y -= floater.speed;
+      floater.x += floater.drift;
+      if (floater.y < -28) floaters[index] = createFloater(false);
+
+      ctx.font = `${floater.size}px ${fontFamily}`;
+      ctx.fillStyle = floater.accent
+        ? `rgba(34, 211, 238, ${floater.opacity})`
+        : `rgba(129, 140, 248, ${floater.opacity})`;
+      ctx.fillText(floater.text, floater.x, floater.y);
+    });
+
+    animId = requestAnimationFrame(draw);
+  }
+
+  resize();
+  draw();
+
+  const resizeObserver = new ResizeObserver(resize);
+  resizeObserver.observe(hero);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      running = false;
+      cancelAnimationFrame(animId);
+    } else {
+      running = true;
+      draw();
+    }
+  });
+}
+
+initHeroCodeBg();
+
 /* ── Navbar scroll styling ───────────────────────────────────── */
 const navbar = document.getElementById('navbar');
 
@@ -230,7 +355,7 @@ contactForm.addEventListener('submit', (e) => {
   if (!valid) return;
 
   // Simulate submit (replace with real API / Formspree / EmailJS)
-  const btn = contactForm.querySelector('.btn-primary');
+  const btn = contactForm.querySelector('button[type="submit"]');
   btn.disabled = true;
   btn.querySelector('.btn-text').textContent = 'Sending…';
 

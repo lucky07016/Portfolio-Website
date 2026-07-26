@@ -63,6 +63,9 @@
     <!-- ░░░ HERO ░░░ -->
     <section id="home" class="hero">
       <div class="hero-bg-grid" aria-hidden="true"></div>
+      <div class="hero-code-bg" aria-hidden="true">
+        <canvas id="heroCodeCanvas"></canvas>
+      </div>
       <div class="hero-orb orb1" aria-hidden="true"></div>
       <div class="hero-orb orb2" aria-hidden="true"></div>
       <div class="hero-content">
@@ -80,7 +83,7 @@
         </p>
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary">View My Work</a>
-          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          <a href="#contact" class="btn btn-cta">Get in Touch</a>
           <a href="https://github.com/lucky07016" target="_blank" rel="noopener" class="btn btn-icon"
             aria-label="GitHub">
             <i class="fab fa-github"></i>
@@ -244,6 +247,27 @@
           <h2 class="section-title">Projects</h2>
         </div>
         <div class="projects-grid">
+
+          <article class="project-card reveal">
+            <div class="project-card-top">
+              <div class="project-icon"><i class="fas fa-clipboard-check"></i></div>
+              <div class="project-links">
+                <a href="https://github.com/lucky07016/AI-Interview-Tracker" target="_blank" rel="noopener"
+                  aria-label="GitHub">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <h3 class="project-title">AI Interview Tracker</h3>
+            <p class="project-desc">
+              A modern AI-powered interview prep workspace — track applications by company and role,
+              analyze resume alignment, generate practice questions, and draft recruiter outreach
+              from one polished dashboard.
+            </p>
+            <div class="project-techs">
+              <span>React</span><span>Vite</span><span>JavaScript</span><span>AI</span>
+            </div>
+          </article>
 
           <article class="project-card reveal">
             <div class="project-card-top">
@@ -632,7 +656,7 @@
                 required></textarea>
               <span class="field-error" id="messageError"></span>
             </div>
-            <button type="submit" class="btn btn-primary btn-full">
+            <button type="submit" class="btn btn-cta btn-full">
               <span class="btn-text">Send Message</span>
               <span class="btn-icon-r"><i class="fas fa-paper-plane"></i></span>
             </button>
