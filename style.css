@@ -1283,7 +1283,7 @@ ul, ol { list-style: none; }
     inset: var(--nav-h) 0 0 0;
     background: rgba(10, 13, 20, 0.97);
     backdrop-filter: blur(20px);
-    flex-direction: column;
+    flex-direction: center;
     align-items: center;
     justify-content: center;
     gap: 8px;
