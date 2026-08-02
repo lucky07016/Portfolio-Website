@@ -115,7 +115,7 @@
             </div>
             <div class="about-stats">
               <div class="stat-card">
-                <span class="stat-num">8+</span>
+                <span class="stat-num">10+</span>
                 <span class="stat-label">GitHub Repo's</span>
               </div>
               <div class="stat-card">
@@ -222,6 +222,8 @@
               <span class="stag">ServiceNow ATF</span>
               <span class="stag">AI for Human Collab</span>
               <span class="stag">Streamlit</span>
+              <span class="stag">Salesforce</span>
+              <span class="stag">SaaS Projects</span>
             </div>
           </div>
 
@@ -232,6 +234,7 @@
               <span class="stag stag-amber">Photo Editing</span>
               <span class="stag stag-amber">Video Editing</span>
               <span class="stag stag-amber">Graphic Design</span>
+              <span class="stag stag-amber">UI/UX Design</span>
             </div>
           </div>
 
@@ -252,33 +255,44 @@
           <article class="project-card project-card-featured reveal">
             <div class="featured-badge"><i class="fas fa-star"></i> Featured AI Flagship Project</div>
             <div class="project-banner-wrapper">
-              <img src="images/tars-rag-healthcare.png" alt="AI Healthcare Assistant using Tars &amp; RAG" class="project-banner-img" />
+              <img src="images/tars-rag-healthcare.png" alt="AI Healthcare Assistant using Tars &amp; RAG"
+                class="project-banner-img" />
             </div>
             <div class="project-featured-content">
               <div class="project-card-top">
                 <div class="project-icon project-icon-health"><i class="fas fa-user-md"></i></div>
                 <div class="project-links">
-                  <button class="project-demo-trigger open-modal-btn" data-modal="tarsHealthcareModal" title="Launch Interactive Demo">
+                  <button class="project-demo-trigger open-modal-btn" data-modal="tarsHealthcareModal"
+                    title="Launch Interactive Demo">
                     <i class="fas fa-desktop"></i> Demo
                   </button>
-                  <a href="https://github.com/lucky07016/AI-Healthcare-Assistant-Tars-RAG" target="_blank" rel="noopener" aria-label="GitHub Repository">
+                  <a href="https://github.com/lucky07016/AI-Healthcare-Assistant-Tars-RAG" target="_blank"
+                    rel="noopener" aria-label="GitHub Repository">
                     <i class="fab fa-github"></i>
                   </a>
                 </div>
               </div>
               <h3 class="project-title">AI Healthcare Assistant using Tars &amp; RAG</h3>
               <p class="project-desc">
-                Built an AI-powered healthcare assistant capable of answering patient queries using Retrieval-Augmented Generation (RAG),
-                handling appointment bookings, differentiating between new and existing patients, and simulating CRM lead creation with Salesforce integration.
+                Built an AI-powered healthcare assistant capable of answering patient queries using Retrieval-Augmented
+                Generation (RAG),
+                handling appointment bookings, differentiating between new and existing patients, and simulating CRM
+                lead creation with Salesforce integration.
               </p>
               <div class="project-features-list">
-                <div class="pfeature-item"><span class="pf-icon">🤖</span> <span>AI Q&amp;A via RAG Knowledge Base</span></div>
-                <div class="pfeature-item"><span class="pf-icon">📅</span> <span>Appointment Booking Workflow</span></div>
-                <div class="pfeature-item"><span class="pf-icon">👤</span> <span>Existing vs. New Patient Workflow</span></div>
-                <div class="pfeature-item"><span class="pf-icon">📚</span> <span>200+ Indexed Documents Retrieval</span></div>
-                <div class="pfeature-item"><span class="pf-icon">🔍</span> <span>Vector Search Retriever (Cosine Similarity)</span></div>
+                <div class="pfeature-item"><span class="pf-icon">🤖</span> <span>AI Q&amp;A via RAG Knowledge
+                    Base</span></div>
+                <div class="pfeature-item"><span class="pf-icon">📅</span> <span>Appointment Booking Workflow</span>
+                </div>
+                <div class="pfeature-item"><span class="pf-icon">👤</span> <span>Existing vs. New Patient
+                    Workflow</span></div>
+                <div class="pfeature-item"><span class="pf-icon">📚</span> <span>200+ Indexed Documents Retrieval</span>
+                </div>
+                <div class="pfeature-item"><span class="pf-icon">🔍</span> <span>Vector Search Retriever (Cosine
+                    Similarity)</span></div>
                 <div class="pfeature-item"><span class="pf-icon">📋</span> <span>Salesforce Lead Simulation</span></div>
-                <div class="pfeature-item"><span class="pf-icon">🌡️</span> <span>Lead Temp Classification (Hot/Warm/Cold)</span></div>
+                <div class="pfeature-item"><span class="pf-icon">🌡️</span> <span>Lead Temp Classification
+                    (Hot/Warm/Cold)</span></div>
               </div>
               <div class="project-techs">
                 <span>Tars AI</span>
@@ -759,13 +773,15 @@
       <!-- Navigation Tabs -->
       <div class="modal-tabs">
         <button class="tab-btn active" data-tab="rag-chat"><i class="fas fa-comments"></i> 1. RAG AI Assistant</button>
-        <button class="tab-btn" data-tab="appointment-flow"><i class="fas fa-calendar-check"></i> 2. Patient Booking Workflow</button>
-        <button class="tab-btn" data-tab="salesforce-crm"><i class="fas fa-chart-line"></i> 3. Salesforce Lead &amp; Temp</button>
+        <button class="tab-btn" data-tab="appointment-flow"><i class="fas fa-calendar-check"></i> 2. Patient Booking
+          Workflow</button>
+        <button class="tab-btn" data-tab="salesforce-crm"><i class="fas fa-chart-line"></i> 3. Salesforce Lead &amp;
+          Temp</button>
         <button class="tab-btn" data-tab="vector-index"><i class="fas fa-database"></i> 4. 200+ Document Index</button>
       </div>
 
       <div class="modal-body">
-        
+
         <!-- TAB 1: RAG CHAT & VECTOR RETRIEVAL -->
         <div class="tab-pane active" id="tab-rag-chat">
           <div class="rag-demo-grid">
@@ -778,20 +794,31 @@
                 <div class="chat-msg bot">
                   <div class="msg-avatar"><i class="fas fa-robot"></i></div>
                   <div class="msg-content">
-                    <p>Hello! I am your <strong>Tars AI Healthcare Assistant</strong> powered by Retrieval-Augmented Generation (RAG).</p>
-                    <p>Ask me anything about clinic operating hours, doctor specialties, pre-op prep, or schedule an appointment!</p>
+                    <p>Hello! I am your <strong>Tars AI Healthcare Assistant</strong> powered by Retrieval-Augmented
+                      Generation (RAG).</p>
+                    <p>Ask me anything about clinic operating hours, doctor specialties, pre-op prep, or schedule an
+                      appointment!</p>
                   </div>
                 </div>
               </div>
               <div class="chat-preset-queries">
                 <span class="preset-label">Sample Patient Queries:</span>
-                <button class="preset-btn" data-query="What are clinic working hours and emergency consultation rules?">🕒 Hours &amp; Rules</button>
-                <button class="preset-btn" data-query="I have persistent chest discomfort and shortness of breath. What should I do?">🫀 Chest Discomfort (Urgent)</button>
-                <button class="preset-btn" data-query="What prep is required before undergoing an abdominal MRI scan?">🔬 MRI Prep Guidelines</button>
-                <button class="preset-btn" data-query="I am an existing patient (ID: PAT-9428). Need a follow-up with Dr. Sharma in Neurology.">👤 Existing Patient Booking</button>
+                <button class="preset-btn"
+                  data-query="What are clinic working hours and emergency consultation rules?">🕒 Hours &amp;
+                  Rules</button>
+                <button class="preset-btn"
+                  data-query="I have persistent chest discomfort and shortness of breath. What should I do?">🫀 Chest
+                  Discomfort (Urgent)</button>
+                <button class="preset-btn"
+                  data-query="What prep is required before undergoing an abdominal MRI scan?">🔬 MRI Prep
+                  Guidelines</button>
+                <button class="preset-btn"
+                  data-query="I am an existing patient (ID: PAT-9428). Need a follow-up with Dr. Sharma in Neurology.">👤
+                  Existing Patient Booking</button>
               </div>
               <form class="chat-input-form" id="ragChatForm">
-                <input type="text" id="ragQueryInput" placeholder="Type a medical query or patient symptom..." required />
+                <input type="text" id="ragQueryInput" placeholder="Type a medical query or patient symptom..."
+                  required />
                 <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-paper-plane"></i> Ask RAG</button>
               </form>
             </div>
@@ -799,13 +826,14 @@
             <!-- Vector Retrieval Inspector Panel -->
             <div class="rag-inspector-col">
               <h4 class="inspector-title"><i class="fas fa-layer-group"></i> Vector Retriever Engine Visualizer</h4>
-              
+
               <div class="inspector-card">
                 <div class="inspector-card-label">Vector Search Similarity Matching</div>
                 <div class="retrieval-score-bar">
                   <div class="score-fill" id="similarityFill" style="width: 94%;"></div>
                 </div>
-                <div class="score-text" id="similarityText">Cosine Similarity Score: <strong>0.9412</strong> (High Relevance)</div>
+                <div class="score-text" id="similarityText">Cosine Similarity Score: <strong>0.9412</strong> (High
+                  Relevance)</div>
               </div>
 
               <div class="inspector-card">
@@ -813,7 +841,9 @@
                 <div class="context-box" id="retrievedContextBox">
                   <span class="doc-badge" id="retrievedDocBadge">Doc #104 — Cardiac Care Triage &amp; Symptoms</span>
                   <p id="retrievedChunkText">
-                    "Patients exhibiting acute chest discomfort, radiating left arm pain, or dyspnea require immediate priority level 1 triage. Direct patient to Emergency Room or book urgent Cardiology consult with Dr. Sharma."
+                    "Patients exhibiting acute chest discomfort, radiating left arm pain, or dyspnea require immediate
+                    priority level 1 triage. Direct patient to Emergency Room or book urgent Cardiology consult with Dr.
+                    Sharma."
                   </p>
                 </div>
               </div>
@@ -832,12 +862,15 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
         <div class="tab-pane" id="tab-appointment-flow">
           <div class="workflow-grid">
             <div class="form-col">
-              <h4 class="form-section-title"><i class="fas fa-user-check"></i> Patient Type &amp; Appointment Request</h4>
-              
+              <h4 class="form-section-title"><i class="fas fa-user-check"></i> Patient Type &amp; Appointment Request
+              </h4>
+
               <!-- Patient Type Switch -->
               <div class="patient-type-selector">
-                <button class="ptype-btn active" id="ptypeNew" type="button"><i class="fas fa-user-plus"></i> New Patient</button>
-                <button class="ptype-btn" id="ptypeExisting" type="button"><i class="fas fa-user-shield"></i> Existing Patient</button>
+                <button class="ptype-btn active" id="ptypeNew" type="button"><i class="fas fa-user-plus"></i> New
+                  Patient</button>
+                <button class="ptype-btn" id="ptypeExisting" type="button"><i class="fas fa-user-shield"></i> Existing
+                  Patient</button>
               </div>
 
               <form id="appointmentWorkflowForm">
@@ -845,10 +878,12 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
                   <div class="form-group">
                     <label for="patientIdInput">Existing Patient ID</label>
                     <div style="display:flex; gap:8px;">
-                      <input type="text" id="patientIdInput" placeholder="e.g. PAT-9428" value="PAT-9428" style="flex:1;" />
+                      <input type="text" id="patientIdInput" placeholder="e.g. PAT-9428" value="PAT-9428"
+                        style="flex:1;" />
                       <button type="button" class="btn btn-primary btn-sm" id="verifyPatientBtn">Verify</button>
                     </div>
-                    <span id="verifyStatusText" style="font-size:11.5px; color:var(--accent-light); margin-top:4px; display:block;"></span>
+                    <span id="verifyStatusText"
+                      style="font-size:11.5px; color:var(--accent-light); margin-top:4px; display:block;"></span>
                   </div>
                 </div>
 
@@ -953,8 +988,10 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
         <div class="tab-pane" id="tab-salesforce-crm">
           <div class="crm-grid">
             <div class="crm-control-col">
-              <h4 class="form-section-title"><i class="fab fa-salesforce"></i> Lead Temperature Classification Matrix</h4>
-              <p class="section-subtext">The Tars AI engine automatically calculates lead urgency and conversion probability based on patient intent, insurance, and medical priority.</p>
+              <h4 class="form-section-title"><i class="fab fa-salesforce"></i> Lead Temperature Classification Matrix
+              </h4>
+              <p class="section-subtext">The Tars AI engine automatically calculates lead urgency and conversion
+                probability based on patient intent, insurance, and medical priority.</p>
 
               <div class="temperature-meter-box">
                 <div class="temp-badge-display" id="leadTempBadge">
@@ -965,11 +1002,13 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
                 <div class="temp-progress">
                   <div class="temp-bar-fill" id="tempBarFill" style="width: 92%;"></div>
                 </div>
-                <p class="temp-desc" id="tempDescText">High conversion intent: Urgent Cardiology consultation with active insurance coverage.</p>
+                <p class="temp-desc" id="tempDescText">High conversion intent: Urgent Cardiology consultation with
+                  active insurance coverage.</p>
               </div>
 
               <div class="crm-factors">
-                <label style="font-weight:600; color:#FFF; margin-bottom:8px; display:block;">Adjust Simulation Criteria:</label>
+                <label style="font-weight:600; color:#FFF; margin-bottom:8px; display:block;">Adjust Simulation
+                  Criteria:</label>
                 <div class="factor-group">
                   <span>Urgency Level:</span>
                   <select id="crmUrgency">
@@ -1035,7 +1074,8 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
 
           <div class="search-index-bar">
             <i class="fas fa-search"></i>
-            <input type="text" id="docIndexSearch" placeholder="Search 200+ indexed healthcare guidelines, protocols, &amp; FAQs..." />
+            <input type="text" id="docIndexSearch"
+              placeholder="Search 200+ indexed healthcare guidelines, protocols, &amp; FAQs..." />
           </div>
 
           <div class="doc-list-grid" id="docListGrid">
@@ -1046,7 +1086,8 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
                 <span class="doc-cat">Emergency Triage</span>
               </div>
               <h5 class="doc-title">Acute Chest Discomfort &amp; Cardiac Protocols</h5>
-              <p class="doc-excerpt">Standard Operating Procedure for triaging chest discomfort, ECG scheduling, and immediate cardiologist alert pathways.</p>
+              <p class="doc-excerpt">Standard Operating Procedure for triaging chest discomfort, ECG scheduling, and
+                immediate cardiologist alert pathways.</p>
               <div class="doc-meta"><span>14 Chunks</span> • <span>Cosine Score: 0.96</span></div>
             </div>
 
@@ -1056,7 +1097,8 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
                 <span class="doc-cat">Radiology</span>
               </div>
               <h5 class="doc-title">MRI &amp; CT Scan Patient Preparation Guidelines</h5>
-              <p class="doc-excerpt">Fasting requirements, contrast agent consent procedures, and metallic implant safety checklists for diagnostic imaging.</p>
+              <p class="doc-excerpt">Fasting requirements, contrast agent consent procedures, and metallic implant
+                safety checklists for diagnostic imaging.</p>
               <div class="doc-meta"><span>8 Chunks</span> • <span>Cosine Score: 0.91</span></div>
             </div>
 
@@ -1066,7 +1108,8 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
                 <span class="doc-cat">Patient Management</span>
               </div>
               <h5 class="doc-title">New Patient Intake &amp; Insurance Verification</h5>
-              <p class="doc-excerpt">Workflow rules for onboarding first-time patients, verifying policy numbers, and mapping to Salesforce Lead objects.</p>
+              <p class="doc-excerpt">Workflow rules for onboarding first-time patients, verifying policy numbers, and
+                mapping to Salesforce Lead objects.</p>
               <div class="doc-meta"><span>19 Chunks</span> • <span>Cosine Score: 0.89</span></div>
             </div>
 
@@ -1076,7 +1119,8 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
                 <span class="doc-cat">Clinic Operations</span>
               </div>
               <h5 class="doc-title">Outpatient Operating Hours &amp; Doctor Rosters</h5>
-              <p class="doc-excerpt">Weekly consultant schedules, OPD timing slots, and emergency weekend call duty lists across all departments.</p>
+              <p class="doc-excerpt">Weekly consultant schedules, OPD timing slots, and emergency weekend call duty
+                lists across all departments.</p>
               <div class="doc-meta"><span>12 Chunks</span> • <span>Cosine Score: 0.88</span></div>
             </div>
           </div>
