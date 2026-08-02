@@ -248,6 +248,54 @@
         </div>
         <div class="projects-grid">
 
+          <!-- 🌟 FEATURED PROJECT: AI Healthcare Assistant using Tars & RAG -->
+          <article class="project-card project-card-featured reveal">
+            <div class="featured-badge"><i class="fas fa-star"></i> Featured AI Flagship Project</div>
+            <div class="project-banner-wrapper">
+              <img src="images/tars-rag-healthcare.png" alt="AI Healthcare Assistant using Tars &amp; RAG" class="project-banner-img" />
+            </div>
+            <div class="project-featured-content">
+              <div class="project-card-top">
+                <div class="project-icon project-icon-health"><i class="fas fa-user-md"></i></div>
+                <div class="project-links">
+                  <button class="project-demo-trigger open-modal-btn" data-modal="tarsHealthcareModal" title="Launch Interactive Demo">
+                    <i class="fas fa-desktop"></i> Demo
+                  </button>
+                  <a href="https://github.com/lucky07016/AI-Healthcare-Assistant-Tars-RAG" target="_blank" rel="noopener" aria-label="GitHub Repository">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+              <h3 class="project-title">AI Healthcare Assistant using Tars &amp; RAG</h3>
+              <p class="project-desc">
+                Built an AI-powered healthcare assistant capable of answering patient queries using Retrieval-Augmented Generation (RAG),
+                handling appointment bookings, differentiating between new and existing patients, and simulating CRM lead creation with Salesforce integration.
+              </p>
+              <div class="project-features-list">
+                <div class="pfeature-item"><span class="pf-icon">🤖</span> <span>AI Q&amp;A via RAG Knowledge Base</span></div>
+                <div class="pfeature-item"><span class="pf-icon">📅</span> <span>Appointment Booking Workflow</span></div>
+                <div class="pfeature-item"><span class="pf-icon">👤</span> <span>Existing vs. New Patient Workflow</span></div>
+                <div class="pfeature-item"><span class="pf-icon">📚</span> <span>200+ Indexed Documents Retrieval</span></div>
+                <div class="pfeature-item"><span class="pf-icon">🔍</span> <span>Vector Search Retriever (Cosine Similarity)</span></div>
+                <div class="pfeature-item"><span class="pf-icon">📋</span> <span>Salesforce Lead Simulation</span></div>
+                <div class="pfeature-item"><span class="pf-icon">🌡️</span> <span>Lead Temp Classification (Hot/Warm/Cold)</span></div>
+              </div>
+              <div class="project-techs">
+                <span>Tars AI</span>
+                <span>Knowledge Retrieval</span>
+                <span>Vector Search</span>
+                <span>Prompt Engineering</span>
+                <span>Conversational AI</span>
+                <span>Workflow Automation</span>
+              </div>
+              <div class="project-card-footer">
+                <button class="btn btn-primary btn-sm open-modal-btn" data-modal="tarsHealthcareModal">
+                  <i class="fas fa-play-circle"></i> Launch Live Interactive Demo
+                </button>
+              </div>
+            </div>
+          </article>
+
           <article class="project-card reveal">
             <div class="project-card-top">
               <div class="project-icon"><i class="fas fa-clipboard-check"></i></div>
@@ -693,6 +741,350 @@
     </div>
     <p class="footer-copy">© 2026 Lucky Kumar. Designed &amp; built with ♥ in Delhi.</p>
   </footer>
+
+  <!-- ░░░ AI HEALTHCARE ASSISTANT INTERACTIVE MODAL ░░░ -->
+  <div class="modal-overlay" id="tarsHealthcareModal" aria-hidden="true">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-title-icon"><i class="fas fa-heart-pulse"></i></div>
+          <div>
+            <h3 class="modal-title">AI Healthcare Assistant <span class="badge-tag">Tars AI &amp; RAG</span></h3>
+            <p class="modal-subtitle">Interactive Workflow &amp; Vector Retrieval Simulator</p>
+          </div>
+        </div>
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="modal-tabs">
+        <button class="tab-btn active" data-tab="rag-chat"><i class="fas fa-comments"></i> 1. RAG AI Assistant</button>
+        <button class="tab-btn" data-tab="appointment-flow"><i class="fas fa-calendar-check"></i> 2. Patient Booking Workflow</button>
+        <button class="tab-btn" data-tab="salesforce-crm"><i class="fas fa-chart-line"></i> 3. Salesforce Lead &amp; Temp</button>
+        <button class="tab-btn" data-tab="vector-index"><i class="fas fa-database"></i> 4. 200+ Document Index</button>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- TAB 1: RAG CHAT & VECTOR RETRIEVAL -->
+        <div class="tab-pane active" id="tab-rag-chat">
+          <div class="rag-demo-grid">
+            <div class="rag-chat-col">
+              <div class="chat-header">
+                <span class="status-dot online"></span>
+                <span>Tars AI Medical Agent — Active (RAG Engine Connected)</span>
+              </div>
+              <div class="chat-messages" id="ragChatMessages">
+                <div class="chat-msg bot">
+                  <div class="msg-avatar"><i class="fas fa-robot"></i></div>
+                  <div class="msg-content">
+                    <p>Hello! I am your <strong>Tars AI Healthcare Assistant</strong> powered by Retrieval-Augmented Generation (RAG).</p>
+                    <p>Ask me anything about clinic operating hours, doctor specialties, pre-op prep, or schedule an appointment!</p>
+                  </div>
+                </div>
+              </div>
+              <div class="chat-preset-queries">
+                <span class="preset-label">Sample Patient Queries:</span>
+                <button class="preset-btn" data-query="What are clinic working hours and emergency consultation rules?">🕒 Hours &amp; Rules</button>
+                <button class="preset-btn" data-query="I have persistent chest discomfort and shortness of breath. What should I do?">🫀 Chest Discomfort (Urgent)</button>
+                <button class="preset-btn" data-query="What prep is required before undergoing an abdominal MRI scan?">🔬 MRI Prep Guidelines</button>
+                <button class="preset-btn" data-query="I am an existing patient (ID: PAT-9428). Need a follow-up with Dr. Sharma in Neurology.">👤 Existing Patient Booking</button>
+              </div>
+              <form class="chat-input-form" id="ragChatForm">
+                <input type="text" id="ragQueryInput" placeholder="Type a medical query or patient symptom..." required />
+                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-paper-plane"></i> Ask RAG</button>
+              </form>
+            </div>
+
+            <!-- Vector Retrieval Inspector Panel -->
+            <div class="rag-inspector-col">
+              <h4 class="inspector-title"><i class="fas fa-layer-group"></i> Vector Retriever Engine Visualizer</h4>
+              
+              <div class="inspector-card">
+                <div class="inspector-card-label">Vector Search Similarity Matching</div>
+                <div class="retrieval-score-bar">
+                  <div class="score-fill" id="similarityFill" style="width: 94%;"></div>
+                </div>
+                <div class="score-text" id="similarityText">Cosine Similarity Score: <strong>0.9412</strong> (High Relevance)</div>
+              </div>
+
+              <div class="inspector-card">
+                <div class="inspector-card-label">Retrieved Knowledge Context (Chunk Match)</div>
+                <div class="context-box" id="retrievedContextBox">
+                  <span class="doc-badge" id="retrievedDocBadge">Doc #104 — Cardiac Care Triage &amp; Symptoms</span>
+                  <p id="retrievedChunkText">
+                    "Patients exhibiting acute chest discomfort, radiating left arm pain, or dyspnea require immediate priority level 1 triage. Direct patient to Emergency Room or book urgent Cardiology consult with Dr. Sharma."
+                  </p>
+                </div>
+              </div>
+
+              <div class="inspector-card">
+                <div class="inspector-card-label">Tars Prompt Engineering Grounding</div>
+                <pre class="code-snippet" id="promptTemplateSnippet">SYSTEM: You are Tars AI Medical Assistant. 
+Use context [Doc #104] to construct an empathetic, clinically sound response. 
+DO NOT hallucinate information outside indexed knowledge base.</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: APPOINTMENT & PATIENT WORKFLOW -->
+        <div class="tab-pane" id="tab-appointment-flow">
+          <div class="workflow-grid">
+            <div class="form-col">
+              <h4 class="form-section-title"><i class="fas fa-user-check"></i> Patient Type &amp; Appointment Request</h4>
+              
+              <!-- Patient Type Switch -->
+              <div class="patient-type-selector">
+                <button class="ptype-btn active" id="ptypeNew" type="button"><i class="fas fa-user-plus"></i> New Patient</button>
+                <button class="ptype-btn" id="ptypeExisting" type="button"><i class="fas fa-user-shield"></i> Existing Patient</button>
+              </div>
+
+              <form id="appointmentWorkflowForm">
+                <div class="form-row" id="existingPatientIdRow" style="display: none;">
+                  <div class="form-group">
+                    <label for="patientIdInput">Existing Patient ID</label>
+                    <div style="display:flex; gap:8px;">
+                      <input type="text" id="patientIdInput" placeholder="e.g. PAT-9428" value="PAT-9428" style="flex:1;" />
+                      <button type="button" class="btn btn-primary btn-sm" id="verifyPatientBtn">Verify</button>
+                    </div>
+                    <span id="verifyStatusText" style="font-size:11.5px; color:var(--accent-light); margin-top:4px; display:block;"></span>
+                  </div>
+                </div>
+
+                <div class="form-row grid-2">
+                  <div class="form-group">
+                    <label for="aptName">Full Name</label>
+                    <input type="text" id="aptName" value="Rahul Verma" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="aptPhone">Contact Number</label>
+                    <input type="tel" id="aptPhone" value="+91 98765 43210" required />
+                  </div>
+                </div>
+
+                <div class="form-row grid-2">
+                  <div class="form-group">
+                    <label for="aptSpecialty">Department / Specialty</label>
+                    <select id="aptSpecialty">
+                      <option value="Cardiology">Cardiology (Heart Health)</option>
+                      <option value="Neurology">Neurology (Brain &amp; Nerves)</option>
+                      <option value="Orthopedics">Orthopedics (Bones &amp; Joints)</option>
+                      <option value="Pediatrics">Pediatrics (Child Health)</option>
+                      <option value="General Medicine" selected>General Medicine</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="aptInsurance">Insurance Coverage</label>
+                    <select id="aptInsurance">
+                      <option value="Star Health">Star Health Insurance</option>
+                      <option value="HDFC ERGO">HDFC ERGO Health</option>
+                      <option value="Care Health">Care Health Insurance</option>
+                      <option value="Self-Pay">Self-Pay / Cash</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row grid-2">
+                  <div class="form-group">
+                    <label for="aptDate">Preferred Date</label>
+                    <input type="date" id="aptDate" value="2026-08-05" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="aptTime">Preferred Slot</label>
+                    <select id="aptTime">
+                      <option value="10:00 AM">10:00 AM Morning Slot</option>
+                      <option value="02:30 PM">02:30 PM Afternoon Slot</option>
+                      <option value="06:00 PM">06:00 PM Evening Slot</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-cta btn-full" style="margin-top:12px;">
+                  <i class="fas fa-cogs"></i> Execute Tars Automation Workflow
+                </button>
+              </form>
+            </div>
+
+            <div class="workflow-status-col">
+              <h4 class="form-section-title"><i class="fas fa-stream"></i> Workflow Execution Trace</h4>
+              <div class="step-timeline" id="workflowTrace">
+                <div class="trace-step completed">
+                  <div class="trace-icon"><i class="fas fa-check"></i></div>
+                  <div class="trace-body">
+                    <strong>1. Patient Classification Trigger</strong>
+                    <span>Validated user input type: <em id="tracePatientType">New Patient Registration</em></span>
+                  </div>
+                </div>
+                <div class="trace-step completed">
+                  <div class="trace-icon"><i class="fas fa-check"></i></div>
+                  <div class="trace-body">
+                    <strong>2. Vector Search Retrieval</strong>
+                    <span>Scanned 200+ docs for Department practitioner slots &amp; protocols</span>
+                  </div>
+                </div>
+                <div class="trace-step completed">
+                  <div class="trace-icon"><i class="fas fa-check"></i></div>
+                  <div class="trace-body">
+                    <strong>3. Slot Allocation &amp; Lock</strong>
+                    <span>Hold placed for General Medicine on 2026-08-05 at 10:00 AM</span>
+                  </div>
+                </div>
+                <div class="trace-step completed">
+                  <div class="trace-icon"><i class="fas fa-check"></i></div>
+                  <div class="trace-body">
+                    <strong>4. Salesforce CRM Dispatch</strong>
+                    <span>Generated Lead payload &amp; classified lead temperature</span>
+                  </div>
+                </div>
+              </div>
+              <div class="booking-receipt" id="bookingReceipt">
+                <div class="receipt-header"><i class="fas fa-ticket-alt"></i> Appointment Booking Confirmation</div>
+                <p><strong>Booking Ref:</strong> <span id="receiptRef">TARS-2026-8819</span></p>
+                <p><strong>Patient Name:</strong> <span id="receiptName">Rahul Verma</span></p>
+                <p><strong>Department:</strong> <span id="receiptDept">General Medicine</span></p>
+                <p><strong>Date &amp; Time:</strong> <span id="receiptDateTime">2026-08-05 @ 10:00 AM</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: SALESFORCE CRM LEAD SIMULATION -->
+        <div class="tab-pane" id="tab-salesforce-crm">
+          <div class="crm-grid">
+            <div class="crm-control-col">
+              <h4 class="form-section-title"><i class="fab fa-salesforce"></i> Lead Temperature Classification Matrix</h4>
+              <p class="section-subtext">The Tars AI engine automatically calculates lead urgency and conversion probability based on patient intent, insurance, and medical priority.</p>
+
+              <div class="temperature-meter-box">
+                <div class="temp-badge-display" id="leadTempBadge">
+                  <span class="temp-icon">🔥</span>
+                  <span class="temp-label">HOT LEAD</span>
+                  <span class="temp-score">(Score: 92/100)</span>
+                </div>
+                <div class="temp-progress">
+                  <div class="temp-bar-fill" id="tempBarFill" style="width: 92%;"></div>
+                </div>
+                <p class="temp-desc" id="tempDescText">High conversion intent: Urgent Cardiology consultation with active insurance coverage.</p>
+              </div>
+
+              <div class="crm-factors">
+                <label style="font-weight:600; color:#FFF; margin-bottom:8px; display:block;">Adjust Simulation Criteria:</label>
+                <div class="factor-group">
+                  <span>Urgency Level:</span>
+                  <select id="crmUrgency">
+                    <option value="High" selected>High (Chest pain, acute symptoms)</option>
+                    <option value="Medium">Medium (Routine appointment / checkup)</option>
+                    <option value="Low">Low (General clinic inquiry)</option>
+                  </select>
+                </div>
+                <div class="factor-group">
+                  <span>Insurance Status:</span>
+                  <select id="crmInsuranceFactor">
+                    <option value="Verified" selected>Verified Private Insurance</option>
+                    <option value="SelfPay">Self-Pay / Cash</option>
+                    <option value="Uninsured">Uninsured / Unknown</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="crm-json-col">
+              <h4 class="form-section-title"><i class="fas fa-code"></i> Salesforce API Payload Object</h4>
+              <div class="json-viewer-header">
+                <span>POST /services/data/v58.0/sobjects/Lead</span>
+                <button class="btn btn-ghost btn-sm" id="copyJsonBtn"><i class="fas fa-copy"></i> Copy JSON</button>
+              </div>
+              <pre class="json-code" id="salesforceJsonPayload">{
+  "attributes": {
+    "type": "Lead",
+    "url": "/services/data/v58.0/sobjects/Lead/00Q5g000003K8x2EAC"
+  },
+  "FirstName": "Rahul",
+  "LastName": "Verma",
+  "Phone": "+91 98765 43210",
+  "LeadSource": "Tars_RAG_Healthcare_Assistant",
+  "Medical_Specialty__c": "Cardiology",
+  "Lead_Temperature__c": "HOT",
+  "Urgency_Score__c": 92,
+  "Patient_Type__c": "New_Patient",
+  "Insurance_Provider__c": "Star Health",
+  "RAG_Context_Summary__c": "Patient requested cardiology consult for chest discomfort. Triage level 1.",
+  "Status": "Working - Contacted"
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: 200+ DOCUMENT INDEX -->
+        <div class="tab-pane" id="tab-vector-index">
+          <div class="vector-index-header">
+            <div class="index-stat">
+              <span class="stat-big">214</span>
+              <span>Indexed Medical Documents</span>
+            </div>
+            <div class="index-stat">
+              <span class="stat-big">1,520</span>
+              <span>Vector Embeddings (768-dim)</span>
+            </div>
+            <div class="index-stat">
+              <span class="stat-big">99.4%</span>
+              <span>Retrieval Precision</span>
+            </div>
+          </div>
+
+          <div class="search-index-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="docIndexSearch" placeholder="Search 200+ indexed healthcare guidelines, protocols, &amp; FAQs..." />
+          </div>
+
+          <div class="doc-list-grid" id="docListGrid">
+            <!-- Sample Doc Cards -->
+            <div class="doc-item">
+              <div class="doc-item-top">
+                <span class="doc-id">DOC-001</span>
+                <span class="doc-cat">Emergency Triage</span>
+              </div>
+              <h5 class="doc-title">Acute Chest Discomfort &amp; Cardiac Protocols</h5>
+              <p class="doc-excerpt">Standard Operating Procedure for triaging chest discomfort, ECG scheduling, and immediate cardiologist alert pathways.</p>
+              <div class="doc-meta"><span>14 Chunks</span> • <span>Cosine Score: 0.96</span></div>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-top">
+                <span class="doc-id">DOC-042</span>
+                <span class="doc-cat">Radiology</span>
+              </div>
+              <h5 class="doc-title">MRI &amp; CT Scan Patient Preparation Guidelines</h5>
+              <p class="doc-excerpt">Fasting requirements, contrast agent consent procedures, and metallic implant safety checklists for diagnostic imaging.</p>
+              <div class="doc-meta"><span>8 Chunks</span> • <span>Cosine Score: 0.91</span></div>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-top">
+                <span class="doc-id">DOC-088</span>
+                <span class="doc-cat">Patient Management</span>
+              </div>
+              <h5 class="doc-title">New Patient Intake &amp; Insurance Verification</h5>
+              <p class="doc-excerpt">Workflow rules for onboarding first-time patients, verifying policy numbers, and mapping to Salesforce Lead objects.</p>
+              <div class="doc-meta"><span>19 Chunks</span> • <span>Cosine Score: 0.89</span></div>
+            </div>
+
+            <div class="doc-item">
+              <div class="doc-item-top">
+                <span class="doc-id">DOC-124</span>
+                <span class="doc-cat">Clinic Operations</span>
+              </div>
+              <h5 class="doc-title">Outpatient Operating Hours &amp; Doctor Rosters</h5>
+              <p class="doc-excerpt">Weekly consultant schedules, OPD timing slots, and emergency weekend call duty lists across all departments.</p>
+              <div class="doc-meta"><span>12 Chunks</span> • <span>Cosine Score: 0.88</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- Back to top -->
   <button id="backToTop" aria-label="Back to top" title="Back to top">

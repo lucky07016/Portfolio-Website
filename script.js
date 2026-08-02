@@ -381,3 +381,347 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     window.scrollTo({ top, behavior: 'smooth' });
   });
 });
+
+/* ── AI Healthcare Assistant (Tars & RAG) Interactive Modal Logic ─ */
+function initTarsHealthcareModal() {
+  const modal = document.getElementById('tarsHealthcareModal');
+  if (!modal) return;
+
+  const openBtns = document.querySelectorAll('.open-modal-btn[data-modal="tarsHealthcareModal"]');
+  const closeBtn = modal.querySelector('.modal-close');
+  const tabBtns = modal.querySelectorAll('.tab-btn');
+  const tabPanes = modal.querySelectorAll('.tab-pane');
+
+  // Open modal
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Close modal
+  function closeModal() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Tab switching
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTab = btn.getAttribute('data-tab');
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.remove('active'));
+
+      btn.classList.add('active');
+      const activePane = document.getElementById(`tab-${targetTab}`);
+      if (activePane) activePane.classList.add('active');
+    });
+  });
+
+  /* ── Tab 1: RAG Interactive Chat Engine ── */
+  const ragForm = document.getElementById('ragChatForm');
+  const ragInput = document.getElementById('ragQueryInput');
+  const ragMessages = document.getElementById('ragChatMessages');
+  const presetBtns = modal.querySelectorAll('.preset-btn');
+  
+  const similarityFill = document.getElementById('similarityFill');
+  const similarityText = document.getElementById('similarityText');
+  const retrievedDocBadge = document.getElementById('retrievedDocBadge');
+  const retrievedChunkText = document.getElementById('retrievedChunkText');
+  const promptSnippet = document.getElementById('promptTemplateSnippet');
+
+  const ragKnowledgeBase = [
+    {
+      keywords: ['hour', 'time', 'open', 'emergency', 'working', 'rule'],
+      docId: 'DOC-124',
+      docName: 'Outpatient Operating Hours & Doctor Rosters',
+      chunk: 'OPD hours are Mon-Sat 8:00 AM - 8:00 PM. Emergency Triage operates 24/7 with immediate trauma care.',
+      score: 0.952,
+      response: 'Our Outpatient Department (OPD) is open Monday through Saturday from 8:00 AM to 8:00 PM. Emergency and critical care consultation is available 24/7 with immediate trauma team availability.'
+    },
+    {
+      keywords: ['chest', 'pain', 'discomfort', 'heart', 'breath', 'cardio'],
+      docId: 'DOC-001',
+      docName: 'Acute Chest Discomfort & Cardiac Protocols',
+      chunk: 'Patients exhibiting acute chest discomfort, radiating left arm pain, or dyspnea require immediate priority level 1 triage. Direct patient to ER or book urgent Cardiology consult.',
+      score: 0.968,
+      response: '⚠️ <strong>Urgent Alert:</strong> Chest discomfort and shortness of breath require immediate medical evaluation. We have flagged this as Priority Triage Level 1 and scheduled an urgent Cardiology notification with Dr. Sharma.'
+    },
+    {
+      keywords: ['mri', 'prep', 'scan', 'test', 'radiology', 'abdominal'],
+      docId: 'DOC-042',
+      docName: 'MRI & CT Scan Patient Preparation Guidelines',
+      chunk: 'Fast for 4-6 hours prior to abdominal MRI. Remove all metallic objects, jewelry, and wear cotton clinic attire.',
+      score: 0.914,
+      response: 'For an abdominal MRI scan: Please fast (no food/drink except water) for 4 to 6 hours before your appointment. Ensure all metal objects, watches, and magnetic accessories are removed before entering the scanning bay.'
+    },
+    {
+      keywords: ['existing', 'pat-', 'id', 'sharma', 'follow-up', 'neurology'],
+      docId: 'DOC-088',
+      docName: 'Existing Patient Record Lookup & Workflow',
+      chunk: 'Patient PAT-9428 verified: Last visit 2026-05-12 in Neurology under Dr. Sharma. Eligible for fast-track follow-up slot.',
+      score: 0.935,
+      response: 'Welcome back! Patient ID <strong>PAT-9428</strong> has been verified in our EHR registry. Your medical records from your previous Neurology visit with Dr. Sharma have been fetched to fast-track your follow-up appointment.'
+    }
+  ];
+
+  function handleRagQuery(queryText) {
+    if (!queryText.trim()) return;
+
+    // Append User Message
+    const userMsg = document.createElement('div');
+    userMsg.className = 'chat-msg user';
+    userMsg.innerHTML = `
+      <div class="msg-avatar"><i class="fas fa-user"></i></div>
+      <div class="msg-content"><p>${escapeHtml(queryText)}</p></div>
+    `;
+    ragMessages.appendChild(userMsg);
+    ragMessages.scrollTop = ragMessages.scrollHeight;
+
+    // Match Query with RAG Knowledge Base
+    const lower = queryText.toLowerCase();
+    let matched = ragKnowledgeBase.find(kb => kb.keywords.some(k => lower.includes(k)));
+    if (!matched) {
+      matched = {
+        docId: 'DOC-210',
+        docName: 'General Healthcare Assistant FAQ Index',
+        chunk: 'General medical query routed to primary care triage. Synthesizing answer using 200+ indexed clinic docs.',
+        score: 0.885,
+        response: `Thank you for your query about "${escapeHtml(queryText)}". Based on our 200+ indexed medical documents, our primary care consultants can assist you during OPD hours or schedule a specialist appointment.`
+      };
+    }
+
+    // Update Vector Retriever Panel
+    if (similarityFill && similarityText) {
+      const pct = Math.round(matched.score * 100);
+      similarityFill.style.width = `${pct}%`;
+      similarityText.innerHTML = `Cosine Similarity Score: <strong>${matched.score}</strong> (${pct > 90 ? 'High Relevance' : 'Moderate Match'})`;
+    }
+
+    if (retrievedDocBadge && retrievedChunkText) {
+      retrievedDocBadge.textContent = `${matched.docId} — ${matched.docName}`;
+      retrievedChunkText.textContent = `"${matched.chunk}"`;
+    }
+
+    if (promptSnippet) {
+      promptSnippet.textContent = `SYSTEM: You are Tars AI Medical Assistant.\nCONTEXT RETRIEVED: [${matched.docId}]\nQUERY: "${queryText}"\nOUTPUT: Grounded response using prompt template v3.2`;
+    }
+
+    // Simulate typing delay for bot response
+    setTimeout(() => {
+      const botMsg = document.createElement('div');
+      botMsg.className = 'chat-msg bot';
+      botMsg.innerHTML = `
+        <div class="msg-avatar"><i class="fas fa-robot"></i></div>
+        <div class="msg-content"><p>${matched.response}</p></div>
+      `;
+      ragMessages.appendChild(botMsg);
+      ragMessages.scrollTop = ragMessages.scrollHeight;
+    }, 600);
+  }
+
+  if (ragForm) {
+    ragForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = ragInput.value;
+      ragInput.value = '';
+      handleRagQuery(text);
+    });
+  }
+
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.getAttribute('data-query');
+      handleRagQuery(q);
+    });
+  });
+
+  /* ── Tab 2: Appointment & Patient Type Switcher ── */
+  const ptypeNew = document.getElementById('ptypeNew');
+  const ptypeExisting = document.getElementById('ptypeExisting');
+  const existingRow = document.getElementById('existingPatientIdRow');
+  const tracePatientType = document.getElementById('tracePatientType');
+  const verifyPatientBtn = document.getElementById('verifyPatientBtn');
+  const verifyStatusText = document.getElementById('verifyStatusText');
+
+  let currentPatientType = 'New Patient';
+
+  if (ptypeNew && ptypeExisting) {
+    ptypeNew.addEventListener('click', () => {
+      ptypeNew.classList.add('active');
+      ptypeExisting.classList.remove('active');
+      existingRow.style.display = 'none';
+      currentPatientType = 'New Patient Registration';
+      if (tracePatientType) tracePatientType.textContent = currentPatientType;
+      updateLeadSimulation();
+    });
+
+    ptypeExisting.addEventListener('click', () => {
+      ptypeExisting.classList.add('active');
+      ptypeNew.classList.remove('active');
+      existingRow.style.display = 'block';
+      currentPatientType = 'Existing Patient Follow-Up';
+      if (tracePatientType) tracePatientType.textContent = currentPatientType;
+      updateLeadSimulation();
+    });
+  }
+
+  if (verifyPatientBtn) {
+    verifyPatientBtn.addEventListener('click', () => {
+      const pid = document.getElementById('patientIdInput').value.trim();
+      verifyStatusText.textContent = `✓ Patient ${pid || 'PAT-9428'} verified! EHR History Loaded (3 Past Consultations found).`;
+    });
+  }
+
+  const aptForm = document.getElementById('appointmentWorkflowForm');
+  if (aptForm) {
+    aptForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('aptName').value;
+      const dept = document.getElementById('aptSpecialty').value;
+      const date = document.getElementById('aptDate').value;
+      const time = document.getElementById('aptTime').value;
+
+      document.getElementById('receiptRef').textContent = `TARS-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+      document.getElementById('receiptName').textContent = name;
+      document.getElementById('receiptDept').textContent = dept;
+      document.getElementById('receiptDateTime').textContent = `${date} @ ${time}`;
+
+      const receipt = document.getElementById('bookingReceipt');
+      receipt.style.animation = 'none';
+      receipt.offsetHeight; // trigger reflow
+      receipt.style.animation = 'pulse-glow 0.8s ease 2';
+    });
+  }
+
+  /* ── Tab 3: Salesforce Lead Temperature Calculation ── */
+  const crmUrgency = document.getElementById('crmUrgency');
+  const crmInsurance = document.getElementById('crmInsuranceFactor');
+  const leadTempBadge = document.getElementById('leadTempBadge');
+  const tempBarFill = document.getElementById('tempBarFill');
+  const tempDescText = document.getElementById('tempDescText');
+  const jsonPayloadEl = document.getElementById('salesforceJsonPayload');
+  const copyJsonBtn = document.getElementById('copyJsonBtn');
+
+  function updateLeadSimulation() {
+    if (!crmUrgency || !crmInsurance) return;
+    const urgency = crmUrgency.value;
+    const ins = crmInsurance.value;
+
+    let score = 50;
+    if (urgency === 'High') score += 35;
+    else if (urgency === 'Medium') score += 15;
+
+    if (ins === 'Verified') score += 15;
+    else if (ins === 'SelfPay') score += 5;
+
+    score = Math.min(score, 98);
+
+    let temp = 'COLD';
+    let icon = '❄️';
+    let colorClass = '#3B82F6'; // blue
+    let desc = 'Low conversion urgency: Patient seeking general hospital inquiries.';
+
+    if (score >= 80) {
+      temp = 'HOT';
+      icon = '🔥';
+      colorClass = '#EF4444'; // red
+      desc = 'High priority lead: Urgent specialist consultation request with verified insurance.';
+    } else if (score >= 60) {
+      temp = 'WARM';
+      icon = '☀️';
+      colorClass = '#F59E0B'; // amber
+      desc = 'Moderate intent lead: Standard checkup request scheduled within upcoming days.';
+    }
+
+    if (leadTempBadge) {
+      leadTempBadge.style.borderColor = colorClass;
+      leadTempBadge.style.background = `${colorClass}22`;
+      leadTempBadge.style.color = colorClass;
+      leadTempBadge.innerHTML = `<span class="temp-icon">${icon}</span> <span class="temp-label">${temp} LEAD</span> <span class="temp-score">(Score: ${score}/100)</span>`;
+    }
+
+    if (tempBarFill) {
+      tempBarFill.style.width = `${score}%`;
+      if (score >= 80) tempBarFill.style.background = 'linear-gradient(90deg, #F59E0B, #EF4444)';
+      else if (score >= 60) tempBarFill.style.background = 'linear-gradient(90deg, #3B82F6, #F59E0B)';
+      else tempBarFill.style.background = 'linear-gradient(90deg, #1E40AF, #3B82F6)';
+    }
+
+    if (tempDescText) tempDescText.textContent = desc;
+
+    if (jsonPayloadEl) {
+      const payloadObj = {
+        attributes: {
+          type: 'Lead',
+          url: '/services/data/v58.0/sobjects/Lead/00Q5g000003K8x2EAC'
+        },
+        FirstName: document.getElementById('aptName')?.value.split(' ')[0] || 'Rahul',
+        LastName: document.getElementById('aptName')?.value.split(' ')[1] || 'Verma',
+        Phone: document.getElementById('aptPhone')?.value || '+91 98765 43210',
+        LeadSource: 'Tars_RAG_Healthcare_Assistant',
+        Medical_Specialty__c: document.getElementById('aptSpecialty')?.value || 'Cardiology',
+        Lead_Temperature__c: temp,
+        Urgency_Score__c: score,
+        Patient_Type__c: currentPatientType.replace(/\s+/g, '_'),
+        Insurance_Provider__c: document.getElementById('aptInsurance')?.value || 'Star Health',
+        RAG_Context_Summary__c: `Calculated ${temp} lead with ${urgency} urgency and ${ins} insurance.`,
+        Status: 'Working - Contacted'
+      };
+      jsonPayloadEl.textContent = JSON.stringify(payloadObj, null, 2);
+    }
+  }
+
+  if (crmUrgency) crmUrgency.addEventListener('change', updateLeadSimulation);
+  if (crmInsurance) crmInsurance.addEventListener('change', updateLeadSimulation);
+
+  if (copyJsonBtn && jsonPayloadEl) {
+    copyJsonBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(jsonPayloadEl.textContent).then(() => {
+        copyJsonBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => copyJsonBtn.innerHTML = '<i class="fas fa-copy"></i> Copy JSON', 2000);
+      });
+    });
+  }
+
+  /* ── Tab 4: Vector Document Search Filter ── */
+  const docSearchInput = document.getElementById('docIndexSearch');
+  const docItems = modal.querySelectorAll('.doc-item');
+
+  if (docSearchInput) {
+    docSearchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      docItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(term) ? 'block' : 'none';
+      });
+    });
+  }
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// Initialize Tars Healthcare Modal
+document.addEventListener('DOMContentLoaded', initTarsHealthcareModal);
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+  initTarsHealthcareModal();
+}
+
