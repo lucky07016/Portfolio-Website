@@ -60,16 +60,16 @@ function typeWrite() {
   const current = phrases[phraseIdx];
 
   if (!isDeleting) {
-    typewriterEl.textContent = current.slice(0, charIdx + 1);
     charIdx++;
+    typewriterEl.textContent = current.slice(0, charIdx);
     if (charIdx === current.length) {
       isDeleting = true;
       setTimeout(typeWrite, twDelay);
       return;
     }
   } else {
-    typewriterEl.textContent = current.slice(0, charIdx - 1);
     charIdx--;
+    typewriterEl.textContent = current.slice(0, charIdx);
     if (charIdx === 0) {
       isDeleting = false;
       phraseIdx = (phraseIdx + 1) % phrases.length;
@@ -191,7 +191,11 @@ function initHeroCodeBg() {
   resize();
   draw();
 
-  const resizeObserver = new ResizeObserver(resize);
+  let resizeTimeout;
+  const resizeObserver = new ResizeObserver(() => {
+    if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
+    resizeTimeout = requestAnimationFrame(resize);
+  });
   resizeObserver.observe(hero);
 
   document.addEventListener('visibilitychange', () => {
@@ -391,14 +395,17 @@ function initTarsHealthcareModal() {
   const closeBtn = modal.querySelector('.modal-close');
   const tabBtns = modal.querySelectorAll('.tab-btn');
   const tabPanes = modal.querySelectorAll('.tab-pane');
+  let lastActiveElement = null;
 
   // Open modal
   openBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
+      lastActiveElement = document.activeElement;
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      if (closeBtn) closeBtn.focus();
     });
   });
 
@@ -407,6 +414,9 @@ function initTarsHealthcareModal() {
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+      lastActiveElement.focus();
+    }
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
@@ -667,13 +677,18 @@ function initTarsHealthcareModal() {
     if (tempDescText) tempDescText.textContent = desc;
 
     if (jsonPayloadEl) {
+      const rawName = (document.getElementById('aptName')?.value || 'Rahul Verma').trim();
+      const nameParts = rawName ? rawName.split(/\s+/) : ['Rahul', 'Verma'];
+      const firstName = nameParts[0] || 'Rahul';
+      const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : 'N/A';
+
       const payloadObj = {
         attributes: {
           type: 'Lead',
           url: '/services/data/v58.0/sobjects/Lead/00Q5g000003K8x2EAC'
         },
-        FirstName: document.getElementById('aptName')?.value.split(' ')[0] || 'Rahul',
-        LastName: document.getElementById('aptName')?.value.split(' ')[1] || 'Verma',
+        FirstName: firstName,
+        LastName: lastName,
         Phone: document.getElementById('aptPhone')?.value || '+91 98765 43210',
         LeadSource: 'Tars_RAG_Healthcare_Assistant',
         Medical_Specialty__c: document.getElementById('aptSpecialty')?.value || 'Cardiology',
