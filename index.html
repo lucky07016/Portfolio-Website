@@ -28,21 +28,25 @@
 
 <body>
 
+  <!-- ░░░ PARTICLE CANVAS ░░░ -->
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
   <!-- ░░░ LOADER  -->
   <div id="loader" aria-hidden="true">
     <div class="loader-inner">
       <div class="loader-logo">Lucky Kumar</div>
+      <div class="loader-rank">[ Developer Portfolio ]</div>
       <div class="loader-bar">
         <div class="loader-fill"></div>
       </div>
-      <p class="loader-text">Initialising portfolio…</p>
+      <p class="loader-text">Initialising systems…</p>
     </div>
   </div>
 
   <!-- ░░░ NAV ░░░ -->
   <header id="navbar">
     <nav class="nav-container">
-      <a href="#home" class="nav-logo">Lucky Kumar | Software Developer</a>
+      <a href="#home" class="nav-logo">Lucky Kumar <span class="nav-logo-badge">Dev</span></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -52,7 +56,8 @@
         <li><a href="#certifications">Certs</a></li>
         <li><a href="#contact" class="nav-cta">Contact</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-controls="navLinks"
+        aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </nav>
@@ -63,24 +68,69 @@
     <!-- ░░░ HERO ░░░ -->
     <section id="home" class="hero">
       <div class="hero-bg-grid" aria-hidden="true"></div>
-      <div class="hero-code-bg" aria-hidden="true">
-        <canvas id="heroCodeCanvas"></canvas>
+      <div class="hero-glow-1" aria-hidden="true"></div>
+      <div class="hero-glow-2" aria-hidden="true"></div>
+
+      <!-- Character art -->
+      <div class="hero-character-wrap" aria-hidden="true">
       </div>
-      <div class="hero-orb orb1" aria-hidden="true"></div>
-      <div class="hero-orb orb2" aria-hidden="true"></div>
+
+      <!-- Side panel (like Solo Leveling ABOUT panel) -->
+      <nav class="hero-side-panel" aria-label="Quick navigation">
+        <a class="hero-side-item active" href="#about">
+          <span class="side-item-text">About</span>
+          <div class="side-item-line"></div>
+        </a>
+        <a class="hero-side-item" href="#skills">
+          <span class="side-item-text">Skills</span>
+          <div class="side-item-line"></div>
+        </a>
+        <a class="hero-side-item" href="#projects">
+          <span class="side-item-text">Projects</span>
+          <div class="side-item-line"></div>
+        </a>
+        <a class="hero-side-item" href="#experience">
+          <span class="side-item-text">Experience</span>
+          <div class="side-item-line"></div>
+        </a>
+        <a class="hero-side-item" href="#contact">
+          <span class="side-item-text">Contact</span>
+          <div class="side-item-line"></div>
+        </a>
+      </nav>
+
+      <!-- Hero text content -->
       <div class="hero-content">
-        <p class="hero-eyebrow"><span class="dot"></span> Available for Internships, Full-Time &amp; Projects</p>
+        <!-- Rank badge like Solo Leveling S-RANK -->
+        <div class="hero-rank-badge">
+          <div class="rank-letter">S</div>
+          <div class="rank-text">
+            <span class="rank-label">Developer</span>
+            <span class="rank-value">Full Stack</span>
+          </div>
+        </div>
+
+        <p class="hero-eyebrow">
+          <span class="dot"></span> Available for Internships, Full-Time &amp; Projects
+        </p>
+
         <h1 class="hero-name">
           <span class="glitch" data-text="Lucky Kumar">Lucky Kumar</span>
         </h1>
+
+        <p class="hero-subtitle">BTech IT · Delhi, India</p>
+        <div class="hero-divider"></div>
+
         <div class="hero-role">
           <span class="role-static">I build </span>
           <span class="typewriter" id="typewriter"></span>
         </div>
+
         <p class="hero-tagline">
-          BTech IT student at Delhi crafting full-stack products and intelligent AI systems —
+          Crafting full-stack products and intelligent AI systems —
           where clean code meets creative thinking.
         </p>
+
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary">View My Work</a>
           <a href="#contact" class="btn btn-cta">Get in Touch</a>
@@ -94,9 +144,10 @@
           </a>
         </div>
       </div>
+
       <div class="hero-scroll-hint" aria-hidden="true">
-        <span>Scroll</span>
         <div class="scroll-line"></div>
+        <span>Scroll</span>
       </div>
     </section>
 
@@ -758,16 +809,17 @@
 
   <!-- ░░░ AI HEALTHCARE ASSISTANT INTERACTIVE MODAL ░░░ -->
   <div class="modal-overlay" id="tarsHealthcareModal" aria-hidden="true">
-    <div class="modal-container modal-lg">
+    <div class="modal-container modal-lg" role="dialog" aria-modal="true" aria-labelledby="tarsModalTitle">
       <div class="modal-header">
         <div class="modal-title-group">
           <div class="modal-title-icon"><i class="fas fa-heart-pulse"></i></div>
           <div>
-            <h3 class="modal-title">AI Healthcare Assistant <span class="badge-tag">Tars AI &amp; RAG</span></h3>
+            <h3 class="modal-title" id="tarsModalTitle">AI Healthcare Assistant <span class="badge-tag">Tars AI &amp;
+                RAG</span></h3>
             <p class="modal-subtitle">Interactive Workflow &amp; Vector Retrieval Simulator</p>
           </div>
         </div>
-        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <button class="modal-close" type="button" aria-label="Close modal">&times;</button>
       </div>
 
       <!-- Navigation Tabs -->
@@ -1135,6 +1187,7 @@ DO NOT hallucinate information outside indexed knowledge base.</pre>
     <i class="fas fa-chevron-up"></i>
   </button>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
 </body>
 

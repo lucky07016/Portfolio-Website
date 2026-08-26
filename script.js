@@ -7,21 +7,31 @@
 'use strict';
 
 /* ── Loader ──────────────────────────────────────────────────── */
-window.addEventListener('load', () => {
+(function setupLoader() {
   const loader = document.getElementById('loader');
-  // Give the fill animation time to complete (1.2s) then fade out
-  setTimeout(() => {
+  let dismissed = false;
+
+  function hideLoader() {
+    if (dismissed) return;
+    dismissed = true;
     loader.classList.add('hidden');
-    // Kick off entry animations after loader exits
     triggerHeroEntry();
-  }, 1400);
-});
+  }
+
+  // Primary: hide after 1.5s once load fires
+  window.addEventListener('load', () => setTimeout(hideLoader, 1500));
+
+  // Fallback: always hide after 2.8s max, regardless of resource load state
+  setTimeout(hideLoader, 2800);
+}());
 
 /* ── Hero entry animation ────────────────────────────────────── */
 function triggerHeroEntry() {
   const items = [
+    '.hero-rank-badge',
     '.hero-eyebrow',
     '.hero-name',
+    '.hero-subtitle',
     '.hero-role',
     '.hero-tagline',
     '.hero-actions',
@@ -31,7 +41,7 @@ function triggerHeroEntry() {
     if (!el) return;
     el.style.opacity = '0';
     el.style.transform = 'translateY(24px)';
-    el.style.transition = `opacity 0.6s ease ${i * 0.12}s, transform 0.6s ease ${i * 0.12}s`;
+    el.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
     // Force reflow then animate
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -52,9 +62,9 @@ const phrases = [
   'generative AI systems',
 ];
 let phraseIdx = 0;
-let charIdx   = 0;
+let charIdx = 0;
 let isDeleting = false;
-let twDelay    = 2000; // pause at end of phrase
+let twDelay = 2000; // pause at end of phrase
 
 function typeWrite() {
   const current = phrases[phraseIdx];
@@ -82,121 +92,133 @@ function typeWrite() {
 // Start typewriter after loader finishes
 setTimeout(typeWrite, 1600);
 
-/* ── Hero coding background animation ────────────────────────── */
-function initHeroCodeBg() {
-  const canvas = document.getElementById('heroCodeCanvas');
-  const hero = document.getElementById('home');
-  if (!canvas || !hero) return;
+/* ── Ember Particle System ───────────────────────────────────── */
+(function initParticles() {
+  const canvas = document.getElementById('particleCanvas');
+  if (!canvas) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const ctx = canvas.getContext('2d');
-  const fontFamily = '"JetBrains Mono", monospace';
-  const fontSize = 13;
-  const charSet = '{}[]();=><+-*/&|!?:.0123456789constletfnifelseforwhileasyncawaitimportexportreturnclassdefprint';
-  const snippets = [
-    'const build = () => {',
-    'import React from "react"',
-    'def train_model():',
-    'async function fetchData()',
-    'git push origin main',
-    'npm run dev',
-    'return res.json(data)',
-    'useEffect(() => {}, [])',
-    'class Portfolio {',
-    'SELECT * FROM users',
-    'docker compose up',
-    'model.fit(X, y)',
-    'try: except Exception:',
-    'public static void main',
-    'export default App',
-    'console.log("debug")',
-    'pip install torch',
-    'if (response.ok) {',
-  ];
-
-  let width = 0;
-  let height = 0;
-  let animId = 0;
-  let columns = 0;
-  let drops = [];
-  let floaters = [];
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+  let animId;
   let running = true;
 
-  function createFloater(scattered) {
+  function resize() {
+    canvas.width = W = window.innerWidth;
+    canvas.height = H = window.innerHeight;
+  }
+
+  // Particle types: floating embers + rising sparks + drifting dust
+  const PARTICLE_COUNT = 120;
+  const particles = [];
+
+  const COLORS = [
+    { r: 107, g: 143, b: 255 }, // blue-indigo
+    { r: 155, g: 109, b: 255 }, // violet
+    { r: 34, g: 211, b: 238 }, // cyan
+    { r: 255, g: 125, b: 59 }, // ember orange
+    { r: 200, g: 170, b: 255 }, // light lavender
+  ];
+
+  function randColor() {
+    // weight toward blue/violet, occasional ember
+    const weights = [0.35, 0.30, 0.15, 0.10, 0.10];
+    const r = Math.random();
+    let cumulative = 0;
+    for (let i = 0; i < COLORS.length; i++) {
+      cumulative += weights[i];
+      if (r < cumulative) return COLORS[i];
+    }
+    return COLORS[0];
+  }
+
+  function createParticle(scattered) {
+    const c = randColor();
+    const isEmber = Math.random() < 0.2;
     return {
-      x: Math.random() * width,
-      y: scattered ? Math.random() * height : height + 24,
-      text: snippets[Math.floor(Math.random() * snippets.length)],
-      speed: 0.18 + Math.random() * 0.42,
-      drift: (Math.random() - 0.5) * 0.1,
-      opacity: 0.05 + Math.random() * 0.09,
-      accent: Math.random() > 0.55,
-      size: 11 + Math.random() * 4,
+      x: Math.random() * W,
+      y: scattered ? Math.random() * H : H + Math.random() * 40,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -(0.2 + Math.random() * 0.8),
+      alpha: 0.05 + Math.random() * 0.55,
+      alphaDir: Math.random() < 0.5 ? 1 : -1,
+      alphaDelta: 0.003 + Math.random() * 0.008,
+      size: isEmber ? 1.5 + Math.random() * 2.5 : 0.8 + Math.random() * 1.8,
+      r: c.r, g: c.g, b: c.b,
+      isEmber,
+      twinkle: Math.random() * Math.PI * 2,
+      twinkleSpeed: 0.02 + Math.random() * 0.05,
+      trail: isEmber ? [] : null,
     };
   }
 
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = hero.offsetWidth;
-    height = hero.offsetHeight;
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    columns = Math.ceil(width / fontSize);
-    drops = Array.from({ length: columns }, () => Math.random() * -120);
-
-    const floaterCount = Math.min(16, Math.max(8, Math.floor(width / 85)));
-    floaters = Array.from({ length: floaterCount }, () => createFloater(true));
+  resize();
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(createParticle(true));
   }
 
   function draw() {
     if (!running) return;
+    ctx.clearRect(0, 0, W, H);
 
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.08)';
-    ctx.fillRect(0, 0, width, height);
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
 
-    ctx.font = `${fontSize}px ${fontFamily}`;
-    for (let i = 0; i < columns; i++) {
-      const x = i * fontSize;
-      const y = drops[i] * fontSize;
-      const char = charSet[Math.floor(Math.random() * charSet.length)];
-      const bright = Math.random() > 0.965;
-      ctx.fillStyle = bright
-        ? 'rgba(34, 211, 238, 0.42)'
-        : 'rgba(129, 140, 248, 0.13)';
-      ctx.fillText(char, x, y);
+      // Update position
+      p.x += p.vx + Math.sin(p.twinkle) * 0.15;
+      p.y += p.vy;
+      p.twinkle += p.twinkleSpeed;
 
-      if (y > height && Math.random() > 0.985) drops[i] = 0;
-      drops[i] += 0.32 + (i % 4) * 0.07;
+      // Fade in/out
+      p.alpha += p.alphaDelta * p.alphaDir;
+      if (p.alpha > 0.7 || p.alpha < 0.02) p.alphaDir *= -1;
+      p.alpha = Math.max(0.02, Math.min(0.7, p.alpha));
+
+      // Trail for embers
+      if (p.trail) {
+        p.trail.push({ x: p.x, y: p.y, alpha: p.alpha });
+        if (p.trail.length > 8) p.trail.shift();
+        for (let t = 0; t < p.trail.length; t++) {
+          const tp = p.trail[t];
+          const trailAlpha = (t / p.trail.length) * tp.alpha * 0.4;
+          ctx.beginPath();
+          ctx.arc(tp.x, tp.y, p.size * 0.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.r},${p.g},${p.b},${trailAlpha})`;
+          ctx.fill();
+        }
+      }
+
+      // Draw particle
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+
+      if (p.isEmber) {
+        // Glowing ember
+        const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+        grd.addColorStop(0, `rgba(${p.r},${p.g},${p.b},${p.alpha})`);
+        grd.addColorStop(1, `rgba(${p.r},${p.g},${p.b},0)`);
+        ctx.fillStyle = grd;
+        ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+      } else {
+        ctx.fillStyle = `rgba(${p.r},${p.g},${p.b},${p.alpha})`;
+      }
+      ctx.fill();
+
+      // Recycle
+      if (p.y < -20) {
+        particles[i] = createParticle(false);
+      }
     }
-
-    floaters.forEach((floater, index) => {
-      floater.y -= floater.speed;
-      floater.x += floater.drift;
-      if (floater.y < -28) floaters[index] = createFloater(false);
-
-      ctx.font = `${floater.size}px ${fontFamily}`;
-      ctx.fillStyle = floater.accent
-        ? `rgba(34, 211, 238, ${floater.opacity})`
-        : `rgba(129, 140, 248, ${floater.opacity})`;
-      ctx.fillText(floater.text, floater.x, floater.y);
-    });
 
     animId = requestAnimationFrame(draw);
   }
 
-  resize();
   draw();
 
-  let resizeTimeout;
-  const resizeObserver = new ResizeObserver(() => {
-    if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
-    resizeTimeout = requestAnimationFrame(resize);
+  window.addEventListener('resize', () => {
+    resize();
   });
-  resizeObserver.observe(hero);
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
@@ -207,9 +229,7 @@ function initHeroCodeBg() {
       draw();
     }
   });
-}
-
-initHeroCodeBg();
+})();
 
 /* ── Navbar scroll styling ───────────────────────────────────── */
 const navbar = document.getElementById('navbar');
@@ -222,18 +242,41 @@ window.addEventListener('scroll', () => {
 
 /* ── Hamburger menu ──────────────────────────────────────────── */
 const hamburger = document.getElementById('hamburger');
-const navLinks  = document.getElementById('navLinks');
+const navLinks = document.getElementById('navLinks');
 
 hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-  hamburger.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+  const isOpen = navLinks.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', String(isOpen));
+  document.body.classList.toggle('nav-open', isOpen);
 });
 
 // Close mobile nav when a link is clicked
 navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => {
     navLinks.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
   });
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape' || !navLinks.classList.contains('open')) return;
+  navLinks.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('nav-open');
+  hamburger.focus();
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900 && navLinks.classList.contains('open')) {
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+  }
 });
 
 /* ── Active nav link tracking ────────────────────────────────── */
@@ -243,47 +286,60 @@ function updateActiveNav() {
   const scrollPos = window.scrollY + 100;
   sections.forEach(sec => {
     const link = document.querySelector(`.nav-links a[href="#${sec.id}"]`);
-    if (!link) return;
     const inView = sec.offsetTop <= scrollPos &&
-                   sec.offsetTop + sec.offsetHeight > scrollPos;
-    link.classList.toggle('active', inView);
+      sec.offsetTop + sec.offsetHeight > scrollPos;
+    if (link) link.classList.toggle('active', inView);
+
+    const sideLink = document.querySelector(`.hero-side-item[href="#${sec.id}"]`);
+    if (sideLink) sideLink.classList.toggle('active', inView);
   });
 }
 
 /* ── Scroll reveal ───────────────────────────────────────────── */
 const revealEls = document.querySelectorAll('.reveal');
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      // Stagger reveals within a group
-      const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.in-view)')];
-      const delay = siblings.indexOf(entry.target) * 80;
-      setTimeout(() => {
-        entry.target.classList.add('in-view');
-      }, delay);
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
+if ('IntersectionObserver' in window) {
+  document.documentElement.classList.add('reveal-ready');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Stagger reveals within a group
+        const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.in-view)')];
+        const delay = Math.max(0, siblings.indexOf(entry.target)) * 80;
+        setTimeout(() => {
+          entry.target.classList.add('in-view');
+        }, delay);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
 
-revealEls.forEach(el => revealObserver.observe(el));
+  revealEls.forEach(el => revealObserver.observe(el));
+} else {
+  revealEls.forEach(el => el.classList.add('in-view'));
+}
 
 /* ── Skill bar animation ─────────────────────────────────────── */
 const skillFills = document.querySelectorAll('.skill-fill');
 
-const skillObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const fill = entry.target;
-      const target = fill.getAttribute('data-w');
-      fill.style.width = `${target}%`;
-      skillObserver.unobserve(fill);
-    }
-  });
-}, { threshold: 0.4 });
+if ('IntersectionObserver' in window) {
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const fill = entry.target;
+        const target = fill.getAttribute('data-w');
+        fill.style.width = `${target}%`;
+        skillObserver.unobserve(fill);
+      }
+    });
+  }, { threshold: 0.4 });
 
-skillFills.forEach(f => skillObserver.observe(f));
+  skillFills.forEach(f => skillObserver.observe(f));
+} else {
+  skillFills.forEach(fill => {
+    fill.style.width = `${fill.getAttribute('data-w')}%`;
+  });
+}
 
 /* ── Back to top ─────────────────────────────────────────────── */
 const backToTopBtn = document.getElementById('backToTop');
@@ -295,6 +351,25 @@ function toggleBackToTop() {
 backToTopBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+updateActiveNav();
+toggleBackToTop();
+
+/* ── EmailJS config ───────────────────────────────────────────
+   Get these 3 values from https://dashboard.emailjs.com
+   1. EMAILJS_PUBLIC_KEY -> Account > General > Public Key
+   2. EMAILJS_SERVICE_ID -> Email Services > your service
+   3. EMAILJS_TEMPLATE_ID -> Email Templates > your template
+   Template should use {{name}}, {{email}}, {{subject}}, {{message}}
+   as variables so they match the fields below.
+──────────────────────────────────────────────────────────────── */
+const EMAILJS_PUBLIC_KEY = '9boV7APoA49otdK2O';
+const EMAILJS_SERVICE_ID = 'service_riseoflucky_0716';
+const EMAILJS_TEMPLATE_ID = 'template_5ezk1fo';
+
+if (window.emailjs) {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
 
 /* ── Contact form validation ─────────────────────────────────── */
 const contactForm = document.getElementById('contactForm');
@@ -328,8 +403,8 @@ contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
   let valid = true;
 
-  const name    = document.getElementById('name').value.trim();
-  const email   = document.getElementById('email').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
   const subject = document.getElementById('subject').value.trim();
   const message = document.getElementById('message').value.trim();
 
@@ -358,19 +433,28 @@ contactForm.addEventListener('submit', (e) => {
 
   if (!valid) return;
 
-  // Simulate submit (replace with real API / Formspree / EmailJS)
   const btn = contactForm.querySelector('button[type="submit"]');
+  const successEl = document.getElementById('formSuccess');
   btn.disabled = true;
   btn.querySelector('.btn-text').textContent = 'Sending…';
 
-  setTimeout(() => {
-    btn.disabled = false;
-    btn.querySelector('.btn-text').textContent = 'Send Message';
-    contactForm.reset();
-    const successEl = document.getElementById('formSuccess');
-    successEl.classList.add('visible');
-    setTimeout(() => successEl.classList.remove('visible'), 5000);
-  }, 1200);
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { name, email, subject, message })
+    .then(() => {
+      contactForm.reset();
+      successEl.textContent = "Message sent! I'll get back to you soon.";
+      successEl.classList.remove('error');
+      successEl.classList.add('visible');
+    })
+    .catch((err) => {
+      console.error('EmailJS error:', err);
+      successEl.textContent = 'Something went wrong. Please email me directly.';
+      successEl.classList.add('visible', 'error');
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.querySelector('.btn-text').textContent = 'Send Message';
+      setTimeout(() => successEl.classList.remove('visible', 'error'), 5000);
+    });
 });
 
 /* ── Smooth scroll for all anchor links ─────────────────────── */
@@ -390,6 +474,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 function initTarsHealthcareModal() {
   const modal = document.getElementById('tarsHealthcareModal');
   if (!modal) return;
+  if (modal.dataset.initialized === 'true') return;
+  modal.dataset.initialized = 'true';
 
   const openBtns = document.querySelectorAll('.open-modal-btn[data-modal="tarsHealthcareModal"]');
   const closeBtn = modal.querySelector('.modal-close');
@@ -449,7 +535,7 @@ function initTarsHealthcareModal() {
   const ragInput = document.getElementById('ragQueryInput');
   const ragMessages = document.getElementById('ragChatMessages');
   const presetBtns = modal.querySelectorAll('.preset-btn');
-  
+
   const similarityFill = document.getElementById('similarityFill');
   const similarityText = document.getElementById('similarityText');
   const retrievedDocBadge = document.getElementById('retrievedDocBadge');
@@ -707,11 +793,15 @@ function initTarsHealthcareModal() {
   if (crmInsurance) crmInsurance.addEventListener('change', updateLeadSimulation);
 
   if (copyJsonBtn && jsonPayloadEl) {
-    copyJsonBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(jsonPayloadEl.textContent).then(() => {
+    copyJsonBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(jsonPayloadEl.textContent);
         copyJsonBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
         setTimeout(() => copyJsonBtn.innerHTML = '<i class="fas fa-copy"></i> Copy JSON', 2000);
-      });
+      } catch (error) {
+        copyJsonBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Copy failed';
+        setTimeout(() => copyJsonBtn.innerHTML = '<i class="fas fa-copy"></i> Copy JSON', 2000);
+      }
     });
   }
 
@@ -734,9 +824,9 @@ function escapeHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// Initialize Tars Healthcare Modal
-document.addEventListener('DOMContentLoaded', initTarsHealthcareModal);
-if (document.readyState === 'interactive' || document.readyState === 'complete') {
+// Initialize Tars Healthcare Modal exactly once.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTarsHealthcareModal, { once: true });
+} else {
   initTarsHealthcareModal();
 }
-
