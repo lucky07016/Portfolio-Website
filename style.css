@@ -1367,8 +1367,6 @@ body.nav-open {
   gap: 18px;
 }
 
-.skill-bar-item {}
-
 .skill-bar-label {
   display: flex;
   justify-content: space-between;
